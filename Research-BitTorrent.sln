@@ -1,0 +1,23 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BitTorrent", "BitTorrent\BitTorrent.csproj", "{05551E96-A709-4790-9256-77B375CEF51E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Client", "Client\Client.csproj", "{E5566F55-389D-4AFF-9A96-85E14DB84F82}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x86 = Debug|x86
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{05551E96-A709-4790-9256-77B375CEF51E}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{05551E96-A709-4790-9256-77B375CEF51E}.Debug|x86.Build.0 = Debug|Any CPU
+		{05551E96-A709-4790-9256-77B375CEF51E}.Release|x86.ActiveCfg = Release|Any CPU
+		{05551E96-A709-4790-9256-77B375CEF51E}.Release|x86.Build.0 = Release|Any CPU
+		{E5566F55-389D-4AFF-9A96-85E14DB84F82}.Debug|x86.ActiveCfg = Debug|x86
+		{E5566F55-389D-4AFF-9A96-85E14DB84F82}.Debug|x86.Build.0 = Debug|x86
+		{E5566F55-389D-4AFF-9A96-85E14DB84F82}.Release|x86.ActiveCfg = Release|x86
+		{E5566F55-389D-4AFF-9A96-85E14DB84F82}.Release|x86.Build.0 = Release|x86
+	EndGlobalSection
+EndGlobal
