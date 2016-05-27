@@ -228,6 +228,10 @@ namespace BitTorrent
             return EndianBitConverter.Big.ToInt32(data.ToArray(), 0) + 4;
         }
 
+        #endregion
+
+        #region Incoming Messages
+
         private MessageType GetMessageType(byte[] bytes)
         {
             if (!IsHandshakeReceived)
@@ -347,10 +351,6 @@ namespace BitTorrent
             Log.WriteLine(this, " Unhandled incoming message " + String.Join("", bytes.Select(x => x.ToString("x2"))));
             Disconnect();
         }
-
-        #endregion
-
-        #region Incoming Messages
 
         private void HandleHandshake(byte[] hash, string id)
         {

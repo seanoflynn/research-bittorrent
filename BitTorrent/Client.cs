@@ -289,6 +289,26 @@ namespace BitTorrent
 
         #region Uploads
 
+        private void HandleBlockRequested(object sender, DataRequest block)
+        {
+            OutgoingBlocks.Enqueue(block);
+
+            ProcessUploads();
+        }
+
+        private void HandleBlockCancelled(object sender, DataRequest block)
+        {
+            foreach (var item in OutgoingBlocks)
+            {
+                if (item.Peer != block.Peer || item.Piece != block.Piece || item.Begin != block.Begin || item.Length != block.Length)
+                    continue;
+
+                item.IsCancelled = true;
+            }
+
+            ProcessUploads();
+        }
+
         private void ProcessUploads()
         {
             if (Interlocked.Exchange(ref isProcessUploads, 1) == 1)
@@ -315,29 +335,27 @@ namespace BitTorrent
             Interlocked.Exchange(ref isProcessUploads, 0);
         }
 
-        private void HandleBlockRequested(object sender, DataRequest block)
-        {
-            OutgoingBlocks.Enqueue(block);
-
-            ProcessUploads();
-        }
-
-        private void HandleBlockCancelled(object sender, DataRequest block)
-        {
-            foreach (var item in OutgoingBlocks)
-            {
-                if (item.Peer != block.Peer || item.Piece != block.Piece || item.Begin != block.Begin || item.Length != block.Length)
-                    continue;
-
-                item.IsCancelled = true;
-            }
-
-            ProcessUploads();
-        }
-
         #endregion
 
         #region Downloads
+
+        private void HandleBlockReceived(object sender, DataPackage args)
+        {
+            IncomingBlocks.Enqueue(args);
+
+            args.Peer.IsBlockRequested[args.Piece][args.Block] = false;
+
+            foreach(var peer in Peers)
+            {
+                if (!peer.Value.IsBlockRequested[args.Piece][args.Block])
+                    continue;
+
+                peer.Value.SendCancel(args.Piece, args.Block * Torrent.BlockSize, Torrent.BlockSize);
+                peer.Value.IsBlockRequested[args.Piece][args.Block] = false;
+            }
+
+            ProcessDownloads();
+        }
 
         private void ProcessDownloads()
         {
@@ -392,24 +410,6 @@ namespace BitTorrent
             }
 
             Interlocked.Exchange(ref isProcessDownloads, 0);
-        }
-
-        private void HandleBlockReceived(object sender, DataPackage args)
-        {
-            IncomingBlocks.Enqueue(args);
-
-            args.Peer.IsBlockRequested[args.Piece][args.Block] = false;
-
-            foreach(var peer in Peers)
-            {
-                if (!peer.Value.IsBlockRequested[args.Piece][args.Block])
-                    continue;
-                
-                peer.Value.SendCancel(args.Piece, args.Block * Torrent.BlockSize, Torrent.BlockSize);
-                peer.Value.IsBlockRequested[args.Piece][args.Block] = false;
-            }
-
-            ProcessDownloads();
         }
 
         #endregion
