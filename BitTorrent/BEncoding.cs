@@ -8,13 +8,13 @@ namespace BitTorrent
 {
     public static class BEncoding
     {
-        private static byte DictionaryStart  = System.Text.Encoding.UTF8.GetBytes("d")[0]; // 100
-        private static byte DictionaryEnd    = System.Text.Encoding.UTF8.GetBytes("e")[0]; // 101
-        private static byte ListStart        = System.Text.Encoding.UTF8.GetBytes("l")[0]; // 108
-        private static byte ListEnd          = System.Text.Encoding.UTF8.GetBytes("e")[0]; // 101
-        private static byte NumberStart      = System.Text.Encoding.UTF8.GetBytes("i")[0]; // 105
-        private static byte NumberEnd        = System.Text.Encoding.UTF8.GetBytes("e")[0]; // 101
-        private static byte ByteArrayDivider = System.Text.Encoding.UTF8.GetBytes(":")[0]; //  58
+        private const byte DictionaryStart  = (byte)'d'; // 100
+        private const byte DictionaryEnd    = (byte)'e'; // 101
+        private const byte ListStart        = (byte)'l'; // 108
+        private const byte ListEnd          = (byte)'e'; // 101
+        private const byte NumberStart      = (byte)'i'; // 105
+        private const byte NumberEnd        = (byte)'e'; // 101
+        private const byte ByteArrayDivider = (byte)':'; //  58
 
         #region Decode
 
