@@ -28,9 +28,6 @@ namespace BitTorrent
 
         public static object DecodeFile(string path)
         {
-            if (!File.Exists(path))
-                throw new FileNotFoundException("unable to find file: " + path);
-
             byte[] bytes = File.ReadAllBytes(path);
 
             return BEncoding.Decode(bytes);
