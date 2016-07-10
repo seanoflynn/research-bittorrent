@@ -281,7 +281,7 @@ namespace BitTorrent
     {
         public static void Append(this MemoryStream stream, byte value)
         {
-            stream.Append(new[] { value });
+            stream.WriteByte(value);
         }
 
         public static void Append(this MemoryStream stream, byte[] values)
