@@ -1,6 +1,6 @@
 # BitTorrent protocol research project
 
-See [seanjoflynn.com/research/bittorrent](http://seanjoflynn.com/research/bittorrent) for the full write up.
+See [seanjoflynn.com/research/bittorrent](https://www.seanjoflynn.com/research/bittorrent.html) for the full write up.
 
 ## Purpose
 
